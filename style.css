@@ -3,6 +3,7 @@ body {
   font-family: Arial, sans-serif;
   background: linear-gradient(135deg, #7b8cff, #9ad9ff);
   color: #ff4d6d;
+  overflow: hidden;
 }
 
 .screen {
@@ -42,10 +43,58 @@ button {
   border: none;
   border-radius: 10px;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.1);
 }
 
 #startText {
   cursor: pointer;
   text-decoration: underline;
+}
+
+/* ❤️ Corazones flotando */
+.heart {
+  position: fixed;
+  bottom: -20px;
+  font-size: 20px;
+  animation: float 6s linear infinite;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-110vh); opacity: 0; }
+}
+
+/* 🎆 Fuegos artificiales */
+.firework {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: explode 1s ease-out forwards;
+}
+
+@keyframes explode {
+  from { transform: scale(0); opacity: 1; }
+  to { transform: scale(8); opacity: 0; }
+}
+
+/* 💌 Carta */
+.carta {
+  margin-top: 20px;
+  max-width: 400px;
+  background: white;
+  color: #ff4d6d;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  display: none;
+  min-height: 120px;
 }
 

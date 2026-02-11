@@ -1,112 +1,114 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Valentine 💖</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: radial-gradient(circle, #ffb6c1, #ff4d6d);
-      height: 100vh;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      text-align: center;
-    }
+<meta charset="UTF-8">
+<title>Valentine 💖</title>
 
-    .screen {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 100%;
-      padding: 20px;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: radial-gradient(circle, #ffb6c1, #ff4d6d);
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+}
 
-    .active {
-      display: flex;
-    }
+.screen {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+}
 
-    h1 {
-      font-size: 2em;
-      margin-bottom: 20px;
-    }
+.active {
+  display: flex;
+}
 
-    p {
-      font-size: 1.1em;
-    }
+h1 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
 
-    button {
-      padding: 12px 26px;
-      font-size: 18px;
-      border: none;
-      border-radius: 25px;
-      cursor: pointer;
-      margin: 10px;
-    }
+p {
+  font-size: 1.1em;
+}
 
-    .yes {
-      background: #fff;
-      color: #ff4d6d;
-      font-weight: bold;
-    }
+button {
+  padding: 14px 28px;
+  font-size: 18px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  margin: 10px;
+}
 
-    .no {
-      background: #222;
-      color: white;
-      position: absolute;
-    }
+.yes {
+  background: white;
+  color: #ff4d6d;
+  font-weight: bold;
+}
 
-    .heart {
-      position: fixed;
-      bottom: -20px;
-      font-size: 20px;
-      animation: float 6s linear infinite;
-      opacity: 0.8;
-      pointer-events: none;
-    }
+.no {
+  background: #222;
+  color: white;
+  position: absolute;
+}
 
-    @keyframes float {
-      0% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(-110vh); opacity: 0; }
-    }
-  </style>
+.heart {
+  position: fixed;
+  bottom: -20px;
+  font-size: 20px;
+  animation: float 6s linear infinite;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-110vh); opacity: 0; }
+}
+</style>
 </head>
+
 <body>
 
 <!-- 🎶 MÚSICA -->
-<audio id="music" loop>
+<audio id="music" preload="auto" loop>
   <source src="persona-favorita.mp3" type="audio/mpeg">
 </audio>
 
-<!-- 🔄 PANTALLA DE CARGA -->
+<!-- 🔄 CARGA -->
 <div class="screen active" id="loading">
   <h1>Valentine 💖<br>Segundo San Valentín Juntos</h1>
   <p>Haz clic para continuar</p>
-  <button class="yes" onclick="startMusic()">Continuar</button>
+  <button class="yes" onclick="activarTodo()">Continuar</button>
 </div>
 
 <!-- 💕 PREGUNTA 1 -->
 <div class="screen" id="q1">
   <h1>¿Quieres ser mi Valentine, Ayudina (stefanie amor de mi vida)?</h1>
-  <button class="yes" onclick="goTo('q2')">Sí</button>
+  <button class="yes" onclick="irA('q2')">Sí</button>
 </div>
 
 <!-- 😈 PREGUNTA 2 -->
 <div class="screen" id="q2">
   <h1>¿Estás segura?</h1>
-  <button class="yes" onclick="goTo('q3')">Sí</button>
+  <button class="yes" onclick="irA('q3')">Sí</button>
   <button class="no" id="noBtn">No</button>
 </div>
 
 <!-- 💍 PREGUNTA 3 -->
 <div class="screen" id="q3">
   <h1>¿Si aceptas vas a tener 10 hijos conmigo, estás realmente segura?</h1>
-  <button class="yes" onclick="goTo('final')">Sí</button>
+  <button class="yes" onclick="irA('final')">Sí</button>
 </div>
 
 <!-- 💖 FINAL -->
@@ -121,51 +123,58 @@
 </div>
 
 <script>
-  function startMusic() {
-    const music = document.getElementById("music");
-    music.volume = 0.7;
-    music.play().catch(() => {});
-    goTo("q1");
-    hearts();
-  }
+function activarTodo() {
+  const music = document.getElementById("music");
+  music.volume = 0.8;
+  music.currentTime = 0;
 
-  function goTo(id) {
-    document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
-    document.getElementById(id).classList.add("active");
-  }
-
-  // 😈 BOTÓN NO: huye + se achica + frases
-  const noBtn = document.getElementById("noBtn");
-  let scale = 1;
-  const phrases = [
-    "No te vas a librar de mí 😈",
-    "Siempre estaremos juntos 💕",
-    "Te vas a casar conmigo 💍"
-  ];
-
-  noBtn.addEventListener("mouseover", () => {
-    scale -= 0.1;
-    if (scale < 0.4) scale = 0.4;
-    noBtn.style.transform = `scale(${scale})`;
-    noBtn.style.left = Math.random() * 80 + "%";
-    noBtn.style.top = Math.random() * 80 + "%";
-    noBtn.textContent = phrases[Math.floor(Math.random() * phrases.length)];
+  music.play().then(() => {
+    console.log("🎶 Música activada");
+  }).catch(() => {
+    alert("Toca nuevamente para activar la música ❤️");
   });
 
-  // ❤️ Corazones flotando
-  function hearts() {
-    setInterval(() => {
-      const h = document.createElement("div");
-      h.className = "heart";
-      h.textContent = "❤️";
-      h.style.left = Math.random() * 100 + "vw";
-      h.style.fontSize = Math.random() * 25 + 15 + "px";
-      document.body.appendChild(h);
-      setTimeout(() => h.remove(), 6000);
-    }, 300);
-  }
+  irA("q1");
+  lanzarCorazones();
+}
+
+function irA(id) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
+
+// 😈 BOTÓN NO QUE HUYE + SE ENCOGE
+const noBtn = document.getElementById("noBtn");
+let escala = 1;
+const frases = [
+  "No te vas a librar de mí 😈",
+  "Siempre estaremos juntos 💕",
+  "Te vas a casar conmigo 💍"
+];
+
+noBtn.addEventListener("mouseover", () => {
+  escala -= 0.1;
+  if (escala < 0.4) escala = 0.4;
+
+  noBtn.style.transform = `scale(${escala})`;
+  noBtn.style.left = Math.random() * 80 + "%";
+  noBtn.style.top = Math.random() * 80 + "%";
+  noBtn.textContent = frases[Math.floor(Math.random() * frases.length)];
+});
+
+// ❤️ CORAZONES
+function lanzarCorazones() {
+  setInterval(() => {
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.textContent = "❤️";
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.fontSize = Math.random() * 25 + 15 + "px";
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 6000);
+  }, 300);
+}
 </script>
 
 </body>
 </html>
-

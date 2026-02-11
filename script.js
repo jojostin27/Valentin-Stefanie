@@ -7,8 +7,13 @@ const screens = {
 };
 
 function show(screen) {
-  Object.values(screens).forEach(s => s.classList.remove("active"));
-  screens[screen].classList.add("active");
+  Object.values(screens).forEach(s => {
+    if (s) s.classList.remove("active");
+  });
+
+  if (screens[screen]) {
+    screens[screen].classList.add("active");
+  }
 
   // Cuando llega al final
   if (screen === "final") {
@@ -17,18 +22,29 @@ function show(screen) {
 }
 
 // INICIO
-document.getElementById("startText").onclick = () => {
-  show("s1");
-  lanzarCorazones(); // empiezan los corazones
-};
+const startBtn = document.getElementById("startText");
+if(startBtn){
+  startBtn.onclick = () => {
+    show("s1");
+    lanzarCorazones();
+  };
+}
 
 // BOTONES SÍ
-document.getElementById("yes1").onclick = () => show("s2");
-document.getElementById("yes2").onclick = () => show("s3");
-document.getElementById("yes3").onclick = () => show("final");
+const yes1 = document.getElementById("yes1");
+const yes2 = document.getElementById("yes2");
+const yes3 = document.getElementById("yes3");
 
-// BOTONES NO QUE HUYEN
-function makeNoRun(btn) {
+if(yes1) yes1.onclick = () => show("s2");
+if(yes2) yes2.onclick = () => show("s3");
+if(yes3) yes3.onclick = () => show("final");
+
+
+// 🔥 BOTONES NO QUE HUYEN (TODOS)
+function makeNoRun(id) {
+  const btn = document.getElementById(id);
+  if (!btn) return;
+
   btn.addEventListener("mouseover", () => {
     btn.style.position = "absolute";
     btn.style.left = Math.random() * 80 + "%";
@@ -42,8 +58,10 @@ function makeNoRun(btn) {
   });
 }
 
-makeNoRun(document.getElementById("no1"));
-makeNoRun(document.getElementById("no2"));
+makeNoRun("no1");
+makeNoRun("no2");
+makeNoRun("no3"); // ← ESTE ES EL NUEVO
+
 
 /* ❤️ CORAZONES */
 function lanzarCorazones() {
@@ -58,6 +76,7 @@ function lanzarCorazones() {
   }, 400);
 }
 
+
 /* 🎆 FUEGOS ARTIFICIALES */
 function lanzarFuegos(){
   setInterval(() => {
@@ -71,10 +90,13 @@ function lanzarFuegos(){
   }, 300);
 }
 
+
 /* 💌 CARTA QUE SE ESCRIBE SOLA */
 function abrirCarta(){
   const carta = document.getElementById("carta");
   const textoElemento = document.getElementById("textoCarta");
+
+  if(!carta || !textoElemento) return;
 
   carta.style.display = "block";
 

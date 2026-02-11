@@ -2,26 +2,41 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>San Valentín 💖</title>
+    <title>Valentine 💖</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <audio autoplay loop>
-        <source src="https://dl.sndup.net/7xkz/mi_persona_favorita.mp3" type="audio/mpeg">
-    </audio>
+<audio autoplay loop>
+    <source src="https://dl.sndup.net/7xkz/mi_persona_favorita.mp3" type="audio/mpeg">
+</audio>
 
-    <div class="container">
-        <h1>💘 ¿Quieres ser mi Valentine, Stefanie? 💘</h1>
+<!-- PANTALLA DE CARGA -->
+<div id="loading" class="screen active">
+    <h1>Valentine</h1>
+    <h2>Segundo San Valentín juntos</h2>
+    <p class="click">Haz clic para continuar</p>
+</div>
 
-        <div class="buttons">
-            <button id="yesBtn">Sí 💖</button>
-            <button id="noBtn">No 😅</button>
-        </div>
+<!-- CONTENIDO -->
+<div id="main" class="screen">
+    <h1 id="question"></h1>
 
-        <p id="message"></p>
+    <div class="buttons">
+        <button id="yesBtn">Sí 💖</button>
+        <button id="noBtn">No 😅</button>
     </div>
+</div>
 
-    <script src="script.js"></script>
+<!-- FINAL -->
+<div id="final" class="screen">
+    <h1>💖 Nuestro segundo San Valentín juntos 💖</h1>
+    <p>
+        No sabes cuánto te amo.<br>
+        Y cada año me esforzaré más porque sea más bonito.
+    </p>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>

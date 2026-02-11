@@ -13,6 +13,7 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  position: relative; /* 🔥 AGREGA ESTO */
 }
 
 .screen.active {
@@ -44,6 +45,13 @@ button {
   border-radius: 10px;
   cursor: pointer;
   transition: 0.3s;
+}
+
+button.no {
+  position: absolute;
+  background: #222;
+  color: white;
+  z-index: 10;
 }
 
 button:hover {

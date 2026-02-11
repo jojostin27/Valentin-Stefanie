@@ -3,49 +3,157 @@
 <head>
   <meta charset="UTF-8">
   <title>Valentine 💖</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: radial-gradient(circle, #ffb6c1, #ff69b4);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+    }
+
+    .screen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    .active {
+      display: flex;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 18px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    .yes {
+      background: #ff4d6d;
+      color: white;
+    }
+
+    .no {
+      background: #333;
+      color: white;
+      position: absolute;
+    }
+
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 20px;
+      animation: float 6s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-110vh); opacity: 0; }
+    }
+  </style>
 </head>
 <body>
 
+<!-- MÚSICA -->
+<audio id="music" loop>
+  <source src="persona-favorita.mp3" type="audio/mpeg">
+</audio>
+
 <!-- PANTALLA DE CARGA -->
-<div id="loader" class="screen active">
-  <h1>Valentine</h1>
-  <h2>Segundo San Valentín juntos</h2>
-  <p id="startText">Haz clic para continuar</p>
+<div class="screen active" id="loading">
+  <h1>Valentine<br>Segundo San Valentín Juntos 💖</h1>
+  <p>Haz clic para continuar</p>
+  <button class="yes" onclick="start()">Continuar</button>
 </div>
 
-<!-- PANTALLA 1 -->
-<div id="screen1" class="screen">
+<!-- PREGUNTA 1 -->
+<div class="screen" id="q1">
   <h1>¿Quieres ser mi Valentine, Ayudina (stefanie amor de mi vida)?</h1>
-  <div class="buttons">
-    <button id="yes1">Sí</button>
-    <button id="no1">No</button>
-  </div>
+  <button class="yes" onclick="goTo('q2')">Sí</button>
 </div>
 
-<!-- PANTALLA 2 -->
-<div id="screen2" class="screen">
+<!-- PREGUNTA 2 -->
+<div class="screen" id="q2">
   <h1>¿Estás segura?</h1>
-  <div class="buttons">
-    <button id="yes2">Sí</button>
-    <button id="no2">No</button>
-  </div>
+  <button class="yes" onclick="goTo('q3')">Sí</button>
+  <button class="no" id="noBtn">No</button>
 </div>
 
-<!-- PANTALLA 3 -->
-<div id="screen3" class="screen">
+<!-- PREGUNTA 3 -->
+<div class="screen" id="q3">
   <h1>¿Si aceptas vas a tener 10 hijos conmigo, estás realmente segura?</h1>
-  <button id="yes3">Sí</button>
+  <button class="yes" onclick="goTo('final')">Sí</button>
 </div>
 
 <!-- FINAL -->
-<div id="final" class="screen">
-  <h1>💖 Nuestro segundo San Valentín juntos 💖</h1>
-  <p>No sabes cuánto te amo.</p>
-  <p>Cada año me esforzaré más porque sea más bonito.</p>
+<div class="screen" id="final">
+  <h1>GRACIAS POR ACEPTAR 💖</h1>
+  <p>
+    Este será nuestro segundo San Valentín juntos,<br>
+    cada año más unidos, amándonos mucho.<br>
+    Eres la mejor persona del mundo y me haces muy feliz.
+  </p>
 </div>
 
-<script src="script.js"></script>
+<script>
+  function start() {
+    document.getElementById("music").play();
+    goTo("q1");
+    hearts();
+  }
+
+  function goTo(id) {
+    document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+  }
+
+  // NO que huye y se hace pequeño
+  const noBtn = document.getElementById("noBtn");
+  let scale = 1;
+  const phrases = [
+    "No te vas a librar de mí 😈",
+    "Siempre estaremos juntos 💕",
+    "Te vas a casar conmigo 💍"
+  ];
+
+  noBtn?.addEventListener("mouseover", () => {
+    scale -= 0.1;
+    noBtn.style.transform = `scale(${scale})`;
+    noBtn.style.left = Math.random() * 80 + "%";
+    noBtn.style.top = Math.random() * 80 + "%";
+    noBtn.textContent = phrases[Math.floor(Math.random() * phrases.length)];
+  });
+
+  // Corazones flotando
+  function hearts() {
+    setInterval(() => {
+      const h = document.createElement("div");
+      h.className = "heart";
+      h.textContent = "❤️";
+      h.style.left = Math.random() * 100 + "vw";
+      h.style.fontSize = Math.random() * 20 + 15 + "px";
+      document.body.appendChild(h);
+      setTimeout(() => h.remove(), 6000);
+    }, 300);
+  }
+</script>
+
 </body>
 </html>
-

@@ -6,15 +6,15 @@
   <style>
     body {
       margin: 0;
-      font-family: 'Arial', sans-serif;
-      background: radial-gradient(circle, #ffb6c1, #ff69b4);
+      font-family: Arial, sans-serif;
+      background: radial-gradient(circle, #ffb6c1, #ff4d6d);
       height: 100vh;
       overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
-      text-align: center;
       color: white;
+      text-align: center;
     }
 
     .screen {
@@ -24,6 +24,7 @@
       justify-content: center;
       width: 100%;
       height: 100%;
+      padding: 20px;
     }
 
     .active {
@@ -35,22 +36,27 @@
       margin-bottom: 20px;
     }
 
+    p {
+      font-size: 1.1em;
+    }
+
     button {
-      padding: 12px 24px;
+      padding: 12px 26px;
       font-size: 18px;
       border: none;
-      border-radius: 20px;
+      border-radius: 25px;
       cursor: pointer;
       margin: 10px;
     }
 
     .yes {
-      background: #ff4d6d;
-      color: white;
+      background: #fff;
+      color: #ff4d6d;
+      font-weight: bold;
     }
 
     .no {
-      background: #333;
+      background: #222;
       color: white;
       position: absolute;
     }
@@ -61,6 +67,7 @@
       font-size: 20px;
       animation: float 6s linear infinite;
       opacity: 0.8;
+      pointer-events: none;
     }
 
     @keyframes float {
@@ -71,50 +78,53 @@
 </head>
 <body>
 
-<!-- MÚSICA -->
+<!-- 🎶 MÚSICA -->
 <audio id="music" loop>
   <source src="persona-favorita.mp3" type="audio/mpeg">
 </audio>
 
-<!-- PANTALLA DE CARGA -->
+<!-- 🔄 PANTALLA DE CARGA -->
 <div class="screen active" id="loading">
-  <h1>Valentine<br>Segundo San Valentín Juntos 💖</h1>
+  <h1>Valentine 💖<br>Segundo San Valentín Juntos</h1>
   <p>Haz clic para continuar</p>
-  <button class="yes" onclick="start()">Continuar</button>
+  <button class="yes" onclick="startMusic()">Continuar</button>
 </div>
 
-<!-- PREGUNTA 1 -->
+<!-- 💕 PREGUNTA 1 -->
 <div class="screen" id="q1">
   <h1>¿Quieres ser mi Valentine, Ayudina (stefanie amor de mi vida)?</h1>
   <button class="yes" onclick="goTo('q2')">Sí</button>
 </div>
 
-<!-- PREGUNTA 2 -->
+<!-- 😈 PREGUNTA 2 -->
 <div class="screen" id="q2">
   <h1>¿Estás segura?</h1>
   <button class="yes" onclick="goTo('q3')">Sí</button>
   <button class="no" id="noBtn">No</button>
 </div>
 
-<!-- PREGUNTA 3 -->
+<!-- 💍 PREGUNTA 3 -->
 <div class="screen" id="q3">
   <h1>¿Si aceptas vas a tener 10 hijos conmigo, estás realmente segura?</h1>
   <button class="yes" onclick="goTo('final')">Sí</button>
 </div>
 
-<!-- FINAL -->
+<!-- 💖 FINAL -->
 <div class="screen" id="final">
   <h1>GRACIAS POR ACEPTAR 💖</h1>
   <p>
     Este será nuestro segundo San Valentín juntos,<br>
     cada año más unidos, amándonos mucho.<br>
-    Eres la mejor persona del mundo y me haces muy feliz.
+    Eres la mejor persona del mundo<br>
+    y me haces muy feliz.
   </p>
 </div>
 
 <script>
-  function start() {
-    document.getElementById("music").play();
+  function startMusic() {
+    const music = document.getElementById("music");
+    music.volume = 0.7;
+    music.play().catch(() => {});
     goTo("q1");
     hearts();
   }
@@ -124,7 +134,7 @@
     document.getElementById(id).classList.add("active");
   }
 
-  // NO que huye y se hace pequeño
+  // 😈 BOTÓN NO: huye + se achica + frases
   const noBtn = document.getElementById("noBtn");
   let scale = 1;
   const phrases = [
@@ -133,22 +143,23 @@
     "Te vas a casar conmigo 💍"
   ];
 
-  noBtn?.addEventListener("mouseover", () => {
+  noBtn.addEventListener("mouseover", () => {
     scale -= 0.1;
+    if (scale < 0.4) scale = 0.4;
     noBtn.style.transform = `scale(${scale})`;
     noBtn.style.left = Math.random() * 80 + "%";
     noBtn.style.top = Math.random() * 80 + "%";
     noBtn.textContent = phrases[Math.floor(Math.random() * phrases.length)];
   });
 
-  // Corazones flotando
+  // ❤️ Corazones flotando
   function hearts() {
     setInterval(() => {
       const h = document.createElement("div");
       h.className = "heart";
       h.textContent = "❤️";
       h.style.left = Math.random() * 100 + "vw";
-      h.style.fontSize = Math.random() * 20 + 15 + "px";
+      h.style.fontSize = Math.random() * 25 + 15 + "px";
       document.body.appendChild(h);
       setTimeout(() => h.remove(), 6000);
     }, 300);
@@ -157,3 +168,4 @@
 
 </body>
 </html>
+

@@ -2,250 +2,247 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>San Valentín 💖</title>
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
+*{
+  box-sizing: border-box;
+}
+
+body{
+  margin:0;
+  font-family: 'Segoe UI', sans-serif;
   background: radial-gradient(circle at top, #ffc0cb, #ff4d6d);
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  text-align: center;
+  height:100vh;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  color:white;
 }
 
-.screen {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  padding: 20px;
-  opacity: 0;
-  transition: opacity 0.6s ease;
+/* PANTALLAS */
+.screen{
+  display:none;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  width:100%;
+  height:100%;
+  animation: fade 0.6s ease;
 }
 
-.screen.active {
-  display: flex;
-  opacity: 1;
+.screen.active{
+  display:flex;
 }
 
-h1 {
-  font-size: 2em;
-  margin-bottom: 20px;
+@keyframes fade{
+  from{opacity:0;}
+  to{opacity:1;}
 }
 
-p {
-  font-size: 1.1em;
+h1{
+  font-size: clamp(1.6rem, 5vw, 2.2rem);
 }
 
-.subtexto {
-  font-size: 0.9em;
-  opacity: 0.9;
-  margin-bottom: 20px;
+p{
+  font-size: clamp(1rem, 4vw, 1.2rem);
 }
 
-button {
-  padding: 14px 28px;
-  font-size: 18px;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
-  margin: 10px;
-  transition: 0.3s;
+/* BOTONES */
+button{
+  padding:12px 24px;
+  font-size:1rem;
+  border:none;
+  border-radius:30px;
+  margin:10px;
+  cursor:pointer;
+  transition:0.3s;
 }
 
-.yes {
-  background: white;
-  color: #ff4d6d;
-  font-weight: bold;
+.yes{
+  background:white;
+  color:#ff4d6d;
+  font-weight:bold;
 }
 
-.yes:hover {
-  transform: scale(1.1);
+.yes:hover{
+  transform:scale(1.1);
 }
 
-.no {
-  background: #222;
-  color: white;
-  position: absolute;
+.no{
+  background:#222;
+  color:white;
+  position:absolute;
 }
 
-/* Corazón que late */
-.latido {
-  display: inline-block;
-  animation: latir 1s infinite;
+/* CORAZÓN LATIDO */
+.latido{
+  animation:latir 1s infinite;
+  display:inline-block;
 }
 
-@keyframes latir {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.25); }
-  100% { transform: scale(1); }
+@keyframes latir{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.3);}
+  100%{transform:scale(1);}
 }
 
-/* Corazones flotando */
-.heart {
-  position: fixed;
-  bottom: -20px;
-  font-size: 20px;
-  animation: float 6s linear infinite;
-  opacity: 0.8;
-  pointer-events: none;
+/* FOTO */
+.foto-final img{
+  width:90%;
+  max-width:320px;
+  border-radius:20px;
+  margin-top:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.3);
 }
 
-@keyframes float {
-  0% { transform: translateY(0); opacity: 1; }
-  100% { transform: translateY(-110vh); opacity: 0; }
+/* CARTA */
+.carta{
+  margin-top:20px;
+  background:white;
+  color:#ff4d6d;
+  padding:20px;
+  border-radius:20px;
+  max-width:350px;
+  display:none;
+  box-shadow:0 10px 25px rgba(0,0,0,0.3);
 }
 
-/* Imagen final */
-.foto-final {
-  margin-top: 25px;
+/* FUEGOS */
+.firework{
+  position:fixed;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  animation:explode 1s ease-out forwards;
 }
 
-.foto-final img {
-  width: 300px;
-  border-radius: 25px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-  animation: aparecer 1.5s ease forwards;
+@keyframes explode{
+  from{transform:scale(0);opacity:1;}
+  to{transform:scale(8);opacity:0;}
 }
 
-@keyframes aparecer {
-  from { opacity: 0; transform: scale(0.8); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-/* Fuegos artificiales */
-.firework {
-  position: fixed;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  pointer-events: none;
-  animation: explode 1s ease-out forwards;
-}
-
-@keyframes explode {
-  from { transform: scale(0); opacity: 1; }
-  to { transform: scale(8); opacity: 0; }
-}
-
-/* Carta */
-.carta {
-  margin-top: 20px;
-  max-width: 400px;
-  background: white;
-  color: #ff4d6d;
-  padding: 20px;
-  border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-  display: none;
-  min-height: 120px;
-}
 </style>
 </head>
 
 <body>
 
-<audio id="music" preload="auto" loop>
-  <source src="persona-favorita.mp3" type="audio/mpeg">
+<audio id="music" loop>
+<source src="persona-favorita.mp3" type="audio/mpeg">
 </audio>
 
-<div class="screen active" id="loading">
-  <h1>San Valentín <span class="latido">❤️</span></h1>
-  <p class="subtexto">Si me amas dale a continuar</p>
-  <button class="yes" onclick="activarTodo()">Continuar</button>
+<!-- INICIO -->
+<div class="screen active" id="inicio">
+<h1>San Valentín <span class="latido">❤️</span></h1>
+<p>Si me amas dale a continuar</p>
+<button class="yes" onclick="activar()">Continuar</button>
 </div>
 
-<div class="screen" id="q1">
-  <h1>¿Quieres ser mi San Valentín mi Ayudina (stefanie el amor de mi vida)?</h1>
-  <button class="yes" onclick="irA('q2')">Sí</button>
+<!-- PREGUNTA 1 -->
+<div class="screen" id="p1">
+<h1>¿Quieres ser mi San Valentín mi Ayudina?</h1>
+<button class="yes" onclick="ir('p2')">Sí</button>
 </div>
 
-<div class="screen" id="q2">
-  <h1>¿Estás 100% segura 💖?</h1>
-  <button class="yes" onclick="irA('q3')">Sí</button>
-  <button class="no" id="noBtn">No</button>
+<!-- PREGUNTA 2 -->
+<div class="screen" id="p2">
+<h1>¿Estás 100% segura? 💖</h1>
+<button class="yes" onclick="ir('p3')">Sí</button>
+<button class="no" id="noBtn">No</button>
 </div>
 
-<div class="screen" id="q3">
-  <h1>¿Si aceptas vamos a tener 10 hijos, realmente estás 100% segura 💖?</h1>
-  <button class="yes" onclick="irA('final')">Sí</button>
+<!-- PREGUNTA 3 -->
+<div class="screen" id="p3">
+<h1>¿Si aceptas vamos a tener 10 hijos?</h1>
+<button class="yes" onclick="ir('test')">Sí</button>
 </div>
 
+<!-- TEST DIVERTIDO -->
+<div class="screen" id="test">
+<h1>💞 Última prueba antes de ser oficialmente mi San Valentín</h1>
+<p>¿Cuánto me amas?</p>
+
+<button class="yes" onclick="respuesta()">Mucho ❤️</button>
+<button class="yes" onclick="respuesta()">Demasiado 💕</button>
+<button class="yes" onclick="respuesta()">Infinito ♾️</button>
+<button class="yes" onclick="respuesta()">Más que infinito ✨</button>
+</div>
+
+<!-- RESPUESTA TROLL -->
+<div class="screen" id="respuesta">
+<h1>❌ Respuesta incorrecta 😌</h1>
+<p>
+La respuesta correcta era:<br><br>
+“Te amo más que todo en este universo  
+y en todos los universos posibles.”
+</p>
+
+<button class="yes" onclick="ir('final')">Aceptar destino 💖</button>
+</div>
+
+<!-- FINAL -->
 <div class="screen" id="final">
-  <h1>GRACIAS POR ACEPTAR 💖</h1>
+<h1>GRACIAS POR ACEPTAR 💖</h1>
 
-  <p>
-    Llevamos <strong>674 días</strong> juntos ❤️<br><br>
-    Este será nuestro segundo San Valentín juntos,<br>
-    cada año más unidos, amándonos mucho.<br>
-    Eres la mejor persona del mundo<br>
-    y me haces muy feliz.
-  </p>
+<p>
+Llevamos <strong>674 días</strong> juntos ❤️
+</p>
 
-  <p style="margin-top:20px; font-size:1.2em;">
-    Y si pudiera elegir mil veces...<br>
-    siempre te elegiría a ti ❤️
-  </p>
+<div class="foto-final">
+<img src="nosotros.jpeg" alt="Nosotros">
+</div>
 
-  <div class="foto-final">
-    <img src="nosotros.jpeg" alt="Nosotros">
-  </div>
+<button class="yes" onclick="abrirCarta()">Abrir carta 💌</button>
 
-  <button class="yes" id="btnCarta" onclick="abrirCarta()">Abrir carta 💌</button>
-
-  <div id="carta" class="carta">
-    <p id="textoCarta"></p>
-  </div>
+<div id="carta" class="carta">
+<p id="textoCarta"></p>
+</div>
 
 </div>
 
 <script>
-function activarTodo() {
-  const music = document.getElementById("music");
-  music.volume = 0;
-  music.currentTime = 0;
-  music.play();
 
-  let vol = 0;
-  const subir = setInterval(() => {
-    if (vol < 0.8) {
-      vol += 0.05;
-      music.volume = vol;
-    } else {
-      clearInterval(subir);
-    }
-  }, 300);
+function activar(){
+const music=document.getElementById("music");
+music.volume=0;
+music.play();
 
-  irA("q1");
-  lanzarCorazones();
+let v=0;
+const subir=setInterval(()=>{
+if(v<0.8){
+v+=0.05;
+music.volume=v;
+}else{
+clearInterval(subir);
+}
+},300);
+
+ir("p1");
 }
 
-function irA(id) {
-  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
+function ir(id){
+document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+document.getElementById(id).classList.add("active");
 
-  if(id === "final"){
-    lanzarFuegos();
-  }
+if(id==="final"){
+lanzarFuegos();
+}
+}
+
+function respuesta(){
+ir("respuesta");
 }
 
 function abrirCarta(){
-  const carta = document.getElementById("carta");
-  const textoElemento = document.getElementById("textoCarta");
-  const boton = document.getElementById("btnCarta");
+const carta=document.getElementById("carta");
+const texto=document.getElementById("textoCarta");
+carta.style.display="block";
 
-  boton.style.display = "none";
-  carta.style.display = "block";
-
-  const texto = `
-Mi amor ❤️
+const mensaje=`Mi amor ❤️
 
 Estos 674 días contigo han sido los más hermosos de mi vida.
 Gracias por cada sonrisa, cada abrazo y cada momento juntos.
@@ -253,63 +250,40 @@ Gracias por cada sonrisa, cada abrazo y cada momento juntos.
 Prometo seguir eligiéndote todos los días,
 en cada risa, en cada dificultad y en cada sueño.
 
-Te amo infinitamente 💖
-  `;
+Te amo infinitamente 💖`;
 
-  let i = 0;
-  textoElemento.innerHTML = "";
+let i=0;
+texto.innerHTML="";
 
-  const intervalo = setInterval(() => {
-    textoElemento.innerHTML += texto[i] === "\n" ? "<br>" : texto[i];
-    i++;
-
-    if (i >= texto.length) {
-      clearInterval(intervalo);
-    }
-  }, 35);
+const escribir=setInterval(()=>{
+texto.innerHTML+=mensaje[i]==="\n"?"<br>":mensaje[i];
+i++;
+if(i>=mensaje.length) clearInterval(escribir);
+},35);
 }
 
-const noBtn = document.getElementById("noBtn");
-let escala = 1;
-const frases = [
-  "No te vas a librar de mí 😈",
-  "Siempre estaremos juntos 💕",
-  "Te vas a casar conmigo 💍"
-];
-
-noBtn.addEventListener("mouseover", () => {
-  escala -= 0.1;
-  if (escala < 0.4) escala = 0.4;
-
-  noBtn.style.transform = `scale(${escala})`;
-  noBtn.style.left = Math.random() * 80 + "%";
-  noBtn.style.top = Math.random() * 80 + "%";
-  noBtn.textContent = frases[Math.floor(Math.random() * frases.length)];
+/* BOTON NO QUE HUYE */
+const noBtn=document.getElementById("noBtn");
+if(noBtn){
+noBtn.addEventListener("mouseover",()=>{
+noBtn.style.left=Math.random()*80+"%";
+noBtn.style.top=Math.random()*80+"%";
 });
-
-function lanzarCorazones() {
-  setInterval(() => {
-    const h = document.createElement("div");
-    h.className = "heart";
-    h.textContent = "❤️";
-    h.style.left = Math.random() * 100 + "vw";
-    h.style.fontSize = Math.random() * 25 + 15 + "px";
-    document.body.appendChild(h);
-    setTimeout(() => h.remove(), 6000);
-  }, 400);
 }
 
+/* FUEGOS */
 function lanzarFuegos(){
-  setInterval(() => {
-    const fuego = document.createElement("div");
-    fuego.className = "firework";
-    fuego.style.left = Math.random() * 100 + "vw";
-    fuego.style.top = Math.random() * 80 + "vh";
-    fuego.style.background = `hsl(${Math.random()*360}, 100%, 60%)`;
-    document.body.appendChild(fuego);
-    setTimeout(() => fuego.remove(), 1000);
-  }, 300);
+setInterval(()=>{
+const f=document.createElement("div");
+f.className="firework";
+f.style.left=Math.random()*100+"vw";
+f.style.top=Math.random()*80+"vh";
+f.style.background=`hsl(${Math.random()*360},100%,60%)`;
+document.body.appendChild(f);
+setTimeout(()=>f.remove(),1000);
+},300);
 }
+
 </script>
 
 </body>

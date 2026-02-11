@@ -134,6 +134,19 @@ button {
   from { transform: scale(0); opacity: 1; }
   to { transform: scale(8); opacity: 0; }
 }
+
+/* Carta */
+.carta {
+  margin-top: 20px;
+  max-width: 400px;
+  background: white;
+  color: #ff4d6d;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  display: none;
+  min-height: 120px;
+}
 </style>
 </head>
 
@@ -184,6 +197,13 @@ button {
   <div class="foto-final">
     <img src="nosotros.jpeg" alt="Nosotros">
   </div>
+
+  <button class="yes" id="btnCarta" onclick="abrirCarta()">Abrir carta 💌</button>
+
+  <div id="carta" class="carta">
+    <p id="textoCarta"></p>
+  </div>
+
 </div>
 
 <script>
@@ -216,7 +236,39 @@ function irA(id) {
   }
 }
 
-// Botón No travieso
+function abrirCarta(){
+  const carta = document.getElementById("carta");
+  const textoElemento = document.getElementById("textoCarta");
+  const boton = document.getElementById("btnCarta");
+
+  boton.style.display = "none";
+  carta.style.display = "block";
+
+  const texto = `
+Mi amor ❤️
+
+Estos 674 días contigo han sido los más hermosos de mi vida.
+Gracias por cada sonrisa, cada abrazo y cada momento juntos.
+
+Prometo seguir eligiéndote todos los días,
+en cada risa, en cada dificultad y en cada sueño.
+
+Te amo infinitamente 💖
+  `;
+
+  let i = 0;
+  textoElemento.innerHTML = "";
+
+  const intervalo = setInterval(() => {
+    textoElemento.innerHTML += texto[i] === "\n" ? "<br>" : texto[i];
+    i++;
+
+    if (i >= texto.length) {
+      clearInterval(intervalo);
+    }
+  }, 35);
+}
+
 const noBtn = document.getElementById("noBtn");
 let escala = 1;
 const frases = [
@@ -235,7 +287,6 @@ noBtn.addEventListener("mouseover", () => {
   noBtn.textContent = frases[Math.floor(Math.random() * frases.length)];
 });
 
-// Corazones
 function lanzarCorazones() {
   setInterval(() => {
     const h = document.createElement("div");
@@ -248,7 +299,6 @@ function lanzarCorazones() {
   }, 400);
 }
 
-// Fuegos artificiales
 function lanzarFuegos(){
   setInterval(() => {
     const fuego = document.createElement("div");

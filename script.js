@@ -1,44 +1,40 @@
-const loading = document.getElementById("loading");
-const main = document.getElementById("main");
-const final = document.getElementById("final");
+const screens = {
+  loader: document.getElementById("loader"),
+  s1: document.getElementById("screen1"),
+  s2: document.getElementById("screen2"),
+  s3: document.getElementById("screen3"),
+  final: document.getElementById("final")
+};
 
-const question = document.getElementById("question");
-const yesBtn = document.getElementById("yesBtn");
-const noBtn = document.getElementById("noBtn");
+function show(screen) {
+  Object.values(screens).forEach(s => s.classList.remove("active"));
+  screens[screen].classList.add("active");
+}
 
-let step = 0;
+// INICIO
+document.getElementById("startText").onclick = () => {
+  show("s1");
+};
 
-loading.addEventListener("click", () => {
-    loading.classList.remove("active");
-    main.classList.add("active");
-    question.textContent = "¿Quieres ser mi Valentine, Ayudina (stefanie amor de mi vida)?";
-});
+// BOTONES
+document.getElementById("yes1").onclick = () => show("s2");
+document.getElementById("yes2").onclick = () => show("s3");
+document.getElementById("yes3").onclick = () => show("final");
 
-yesBtn.addEventListener("click", () => {
-    step++;
+// BOTONES NO QUE HUYEN
+function makeNoRun(btn) {
+  btn.addEventListener("mouseover", () => {
+    btn.style.position = "absolute";
+    btn.style.left = Math.random() * 80 + "%";
+    btn.style.top = Math.random() * 80 + "%";
 
-    if (step === 1) {
-        question.textContent = "¿Estás segura?";
-    } 
-    else if (step === 2) {
-        question.textContent = "¿Si aceptas vas a tener 10 hijos conmigo, estás realmente segura?";
-    } 
-    else {
-        main.classList.remove("active");
-        final.classList.add("active");
-    }
-});
+    btn.innerText = [
+      "No te vas a librar de mí",
+      "Siempre estaremos juntos",
+      "Te vas a casar conmigo"
+    ][Math.floor(Math.random() * 3)];
+  });
+}
 
-noBtn.addEventListener("mouseover", () => {
-    const x = Math.random() * 300 - 150;
-    const y = Math.random() * 300 - 150;
-    noBtn.style.transform = `translate(${x}px, ${y}px)`;
-
-    const frases = [
-        "no te vas a librar de mí",
-        "siempre estaremos juntos",
-        "te vas a casar conmigo"
-    ];
-
-    question.textContent = frases[Math.floor(Math.random() * frases.length)];
-});
+makeNoRun(document.getElementById("no1"));
+makeNoRun(document.getElementById("no2"));

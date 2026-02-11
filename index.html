@@ -3,200 +3,170 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>San Valentín 💖</title>
+<title>Para Siempre 💖</title>
 
 <style>
-*{
-  box-sizing: border-box;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
-  margin:0;
-  font-family: 'Segoe UI', sans-serif;
-  background: radial-gradient(circle at top, #ffc0cb, #ff4d6d);
-  height:100vh;
-  overflow:hidden;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  color:white;
+font-family:'Segoe UI',sans-serif;
+background:radial-gradient(circle at top,#111,#000);
+color:white;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+text-align:center;
 }
 
-/* PANTALLAS */
+/* ESTRELLAS */
+body::before{
+content:"";
+position:fixed;
+width:200%;
+height:200%;
+background:transparent url("https://www.transparenttextures.com/patterns/stardust.png");
+animation:stars 60s linear infinite;
+opacity:0.4;
+}
+
+@keyframes stars{
+from{transform:translate(0,0)}
+to{transform:translate(-500px,-500px)}
+}
+
 .screen{
-  display:none;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  padding:20px;
-  width:100%;
-  height:100%;
-  animation: fade 0.6s ease;
+display:none;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+padding:25px;
+width:100%;
+height:100%;
+animation:fade 1s ease;
 }
 
-.screen.active{
-  display:flex;
-}
+.screen.active{display:flex}
 
 @keyframes fade{
-  from{opacity:0;}
-  to{opacity:1;}
+from{opacity:0}
+to{opacity:1}
 }
 
 h1{
-  font-size: clamp(1.6rem, 5vw, 2.2rem);
+font-size:clamp(1.6rem,5vw,2.4rem);
+margin-bottom:20px;
 }
 
 p{
-  font-size: clamp(1rem, 4vw, 1.2rem);
+font-size:clamp(1rem,4vw,1.2rem);
+max-width:500px;
+line-height:1.6;
 }
 
-/* BOTONES */
 button{
-  padding:12px 24px;
-  font-size:1rem;
-  border:none;
-  border-radius:30px;
-  margin:10px;
-  cursor:pointer;
-  transition:0.3s;
+padding:12px 26px;
+border:none;
+border-radius:30px;
+margin:12px;
+cursor:pointer;
+font-size:1rem;
+transition:0.3s;
+background:white;
+color:#111;
+font-weight:bold;
 }
 
-.yes{
-  background:white;
-  color:#ff4d6d;
-  font-weight:bold;
-}
-
-.yes:hover{
-  transform:scale(1.1);
-}
-
-.no{
-  background:#222;
-  color:white;
-  position:absolute;
-}
-
-/* CORAZÓN LATIDO */
-.latido{
-  animation:latir 1s infinite;
-  display:inline-block;
-}
-
-@keyframes latir{
-  0%{transform:scale(1);}
-  50%{transform:scale(1.3);}
-  100%{transform:scale(1);}
+button:hover{
+transform:scale(1.1);
 }
 
 /* FOTO */
 .foto-final img{
-  width:90%;
-  max-width:320px;
-  border-radius:20px;
-  margin-top:20px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.3);
+width:90%;
+max-width:320px;
+border-radius:20px;
+margin-top:25px;
+box-shadow:0 0 30px rgba(255,255,255,0.4);
+animation:glow 3s infinite alternate;
+}
+
+@keyframes glow{
+from{box-shadow:0 0 20px rgba(255,255,255,0.3)}
+to{box-shadow:0 0 40px rgba(255,255,255,0.8)}
 }
 
 /* CARTA */
 .carta{
-  margin-top:20px;
-  background:white;
-  color:#ff4d6d;
-  padding:20px;
-  border-radius:20px;
-  max-width:350px;
-  display:none;
-  box-shadow:0 10px 25px rgba(0,0,0,0.3);
+margin-top:25px;
+background:white;
+color:#111;
+padding:20px;
+border-radius:20px;
+max-width:350px;
+display:none;
+box-shadow:0 10px 30px rgba(255,255,255,0.2);
 }
 
 /* FUEGOS */
 .firework{
-  position:fixed;
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  animation:explode 1s ease-out forwards;
+position:fixed;
+width:6px;
+height:6px;
+border-radius:50%;
+animation:explode 1s ease-out forwards;
 }
 
 @keyframes explode{
-  from{transform:scale(0);opacity:1;}
-  to{transform:scale(8);opacity:0;}
+from{transform:scale(0);opacity:1}
+to{transform:scale(8);opacity:0}
 }
 
 </style>
 </head>
-
 <body>
 
 <audio id="music" loop>
 <source src="persona-favorita.mp3" type="audio/mpeg">
 </audio>
 
-<!-- INICIO -->
-<div class="screen active" id="inicio">
-<h1>San Valentín <span class="latido">❤️</span></h1>
-<p>Si me amas dale a continuar</p>
-<button class="yes" onclick="activar()">Continuar</button>
+<!-- INTRO -->
+<div class="screen active" id="intro">
+<h1>Desde hace 674 días...</h1>
+<p>Mi vida cambió para siempre ❤️</p>
+<button onclick="activar()">Continuar</button>
 </div>
 
-<!-- PREGUNTA 1 -->
-<div class="screen" id="p1">
-<h1>¿Quieres ser mi San Valentín mi Ayudina?</h1>
-<button class="yes" onclick="ir('p2')">Sí</button>
-</div>
-
-<!-- PREGUNTA 2 -->
-<div class="screen" id="p2">
-<h1>¿Estás 100% segura? 💖</h1>
-<button class="yes" onclick="ir('p3')">Sí</button>
-<button class="no" id="noBtn">No</button>
-</div>
-
-<!-- PREGUNTA 3 -->
-<div class="screen" id="p3">
-<h1>¿Si aceptas vamos a tener 10 hijos?</h1>
-<button class="yes" onclick="ir('test')">Sí</button>
-</div>
-
-<!-- TEST DIVERTIDO -->
-<div class="screen" id="test">
-<h1>💞 Última prueba antes de ser oficialmente mi San Valentín</h1>
-<p>¿Cuánto me amas?</p>
-
-<button class="yes" onclick="respuesta()">Mucho ❤️</button>
-<button class="yes" onclick="respuesta()">Demasiado 💕</button>
-<button class="yes" onclick="respuesta()">Infinito ♾️</button>
-<button class="yes" onclick="respuesta()">Más que infinito ✨</button>
-</div>
-
-<!-- RESPUESTA TROLL -->
-<div class="screen" id="respuesta">
-<h1>❌ Respuesta incorrecta 😌</h1>
+<!-- MENSAJE -->
+<div class="screen" id="mensaje">
+<h1>No solo quiero que seas mi San Valentín...</h1>
 <p>
-La respuesta correcta era:<br><br>
-“Te amo más que todo en este universo  
-y en todos los universos posibles.”
+Quiero que seas mi compañera de vida,<br>
+mi lugar seguro,<br>
+mi hogar,<br>
+mi para siempre.
 </p>
+<button onclick="ir('propuesta')">Siguiente</button>
+</div>
 
-<button class="yes" onclick="ir('final')">Aceptar destino 💖</button>
+<!-- PROPUESTA -->
+<div class="screen" id="propuesta">
+<h1>💖 ¿Quieres caminar conmigo<br>todos los días que nos falten?</h1>
+
+<button onclick="ir('final')">Sí, para siempre 💍</button>
+<button onclick="ir('final')">Obviamente sí 😌</button>
 </div>
 
 <!-- FINAL -->
 <div class="screen" id="final">
-<h1>GRACIAS POR ACEPTAR 💖</h1>
-
-<p>
-Llevamos <strong>674 días</strong> juntos ❤️
-</p>
+<h1>Entonces será para siempre 💖</h1>
 
 <div class="foto-final">
 <img src="nosotros.jpeg" alt="Nosotros">
 </div>
 
-<button class="yes" onclick="abrirCarta()">Abrir carta 💌</button>
+<button onclick="abrirCarta()">Abrir carta 💌</button>
 
 <div id="carta" class="carta">
 <p id="textoCarta"></p>
@@ -221,7 +191,7 @@ clearInterval(subir);
 }
 },300);
 
-ir("p1");
+ir("mensaje");
 }
 
 function ir(id){
@@ -233,10 +203,6 @@ lanzarFuegos();
 }
 }
 
-function respuesta(){
-ir("respuesta");
-}
-
 function abrirCarta(){
 const carta=document.getElementById("carta");
 const texto=document.getElementById("textoCarta");
@@ -244,13 +210,17 @@ carta.style.display="block";
 
 const mensaje=`Mi amor ❤️
 
-Estos 674 días contigo han sido los más hermosos de mi vida.
-Gracias por cada sonrisa, cada abrazo y cada momento juntos.
+Estos 674 días contigo han sido el inicio
+de la historia más bonita de mi vida.
 
-Prometo seguir eligiéndote todos los días,
-en cada risa, en cada dificultad y en cada sueño.
+No sé qué nos traerá el futuro,
+pero sé que quiero vivirlo contigo.
 
-Te amo infinitamente 💖`;
+Quiero seguir eligiéndote cada día.
+Quiero seguir creciendo contigo.
+Quiero que seas mi siempre.
+
+Para siempre nosotros 💖`;
 
 let i=0;
 texto.innerHTML="";
@@ -259,19 +229,9 @@ const escribir=setInterval(()=>{
 texto.innerHTML+=mensaje[i]==="\n"?"<br>":mensaje[i];
 i++;
 if(i>=mensaje.length) clearInterval(escribir);
-},35);
+},40);
 }
 
-/* BOTON NO QUE HUYE */
-const noBtn=document.getElementById("noBtn");
-if(noBtn){
-noBtn.addEventListener("mouseover",()=>{
-noBtn.style.left=Math.random()*80+"%";
-noBtn.style.top=Math.random()*80+"%";
-});
-}
-
-/* FUEGOS */
 function lanzarFuegos(){
 setInterval(()=>{
 const f=document.createElement("div");
@@ -281,7 +241,7 @@ f.style.top=Math.random()*80+"vh";
 f.style.background=`hsl(${Math.random()*360},100%,60%)`;
 document.body.appendChild(f);
 setTimeout(()=>f.remove(),1000);
-},300);
+},250);
 }
 
 </script>
